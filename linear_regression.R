@@ -143,6 +143,13 @@ coef(summary(sat.voting.mod))
 ## Modeling interactions
 ## ─────────────────────────
 
+
+plot(x=states.data$energy, y= states.data$metro)
+states.engmet<-lm(energy~metro,data = states.data)
+summary(states.engmet)
+
+cor(summary(states.engmet))
+
 ##   Interactions allow us assess the extent to which the association
 ##   between one predictor and the outcome depends on a second predictor.
 ##   For example: Does the association between expense and SAT scores
@@ -200,6 +207,8 @@ coef(summary(lm(csat ~ C(region, contr.helmert),
 
 ##   1. Add on to the regression equation that you created in exercise 1 by
 ##      generating an interaction term and testing the interaction.
+
+
 
 ##   2. Try adding region to the model. Are there significant differences
 ##      across the four regions?

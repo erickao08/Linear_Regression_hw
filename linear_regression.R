@@ -28,6 +28,7 @@ list.files("dataSets") # files in the dataSets folder
 
 # read the states data
 states.data <- readRDS("dataSets/states.rds") 
+Exam.data<-readRDS("dataSets/Exam.rds")
 #get labels
 states.info <- data.frame(attributes(states.data)[c("names", "var.labels")])
 #look at last few labels
@@ -133,6 +134,14 @@ coef(summary(sat.voting.mod))
 ##   2. Print and interpret the model `summary'
 ##   3. `plot' the model to look for deviations from modeling assumptions
 
+plot(x=states.data$energy, y= states.data$metro)
+states.engmet<-lm(states.data$energy~states.data$metro,data = states.data)
+summary(states.engmet)
+
+
+## We have a R-squared 0.98 here 
+
+
 ##   Select one or more additional predictors to add to your model and
 ##   repeat steps 1-3. Is this model significantly better than the model
 ##   with /metro/ as the only predictor?
@@ -142,13 +151,34 @@ coef(summary(sat.voting.mod))
 
 ## Modeling interactions
 ## ─────────────────────────
+library(PerformanceAnalytics)
+library(corrplot)
+## clean the data. District of Columbia has no data
+is.na(states.data$metro)<-0
+is.na(states.data$energy)<-0
+states.data$state<-factor(states.data$state)
+states.data$region<-factor(states.data$region)
+
+## correlation of the data
+M<-cor(states.data[sapply(states.data, is.numeric)])
+corrplot(M, method="circle")
+
+## using different predictors
+lm_vsat<-lm(states.data$energy~states.data$metro+states.data$vsat,data = states.data)
+summary(lm_vsat)
+
+lm_csat<-lm(states.data$energy~states.data$metro+states.data$csat,data = states.data)
+summary(lm_csat)
+
+lm_income<-lm(states.data$energy~states.data$metro+states.data$income,data = states.data)
+summary(lm_income)
+
+cor(states.data$metro,states.data)
+chart.Correlation(states.data,histogram = TRUE)
 
 
-plot(x=states.data$energy, y= states.data$metro)
-states.engmet<-lm(energy~metro,data = states.data)
-summary(states.engmet)
 
-cor(summary(states.engmet))
+cor(states.data)
 
 ##   Interactions allow us assess the extent to which the association
 ##   between one predictor and the outcome depends on a second predictor.
@@ -197,6 +227,7 @@ coef(summary(lm(csat ~ C(region, base=4),
 # change the coding scheme
 coef(summary(lm(csat ~ C(region, contr.helmert),
                 data=states.data)))
+
 
 ##   See also `?contrasts', `?contr.treatment', and `?relevel'.
 

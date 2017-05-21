@@ -244,4 +244,4 @@ states.engmet_new<-lm(states.data$energy~states.data$metro+states.data$csat+stat
 ##   2. Try adding region to the model. Are there significant differences
 ##      across the four regions?
 states.engmet_region<-lm(states.data$energy~states.data$metro+states.data$csat+states.data$vsat+states.data$csat*states.data$vsat+states.data$region,data = states.data)
-
+## Yes there are huge difference between South and midwest, but where is west region? 

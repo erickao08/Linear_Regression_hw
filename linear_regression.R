@@ -245,3 +245,9 @@ states.engmet_new<-lm(states.data$energy~states.data$metro+states.data$csat+stat
 ##      across the four regions?
 states.engmet_region<-lm(states.data$energy~states.data$metro+states.data$csat+states.data$vsat+states.data$csat*states.data$vsat+states.data$region,data = states.data)
 ## Yes there are huge difference between South and midwest, but where is west region? 
+##  states.data$regionN. East  
+##NA  
+##states.data$regionSouth  
+##-328.286  
+##states.data$regionMidwest  
+##85.143  

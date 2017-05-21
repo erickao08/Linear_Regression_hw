@@ -239,7 +239,9 @@ coef(summary(lm(csat ~ C(region, contr.helmert),
 ##   1. Add on to the regression equation that you created in exercise 1 by
 ##      generating an interaction term and testing the interaction.
 
-
+states.engmet_new<-lm(states.data$energy~states.data$metro+states.data$csat+states.data$vsat+states.data$csat*states.data$vsat,data = states.data)
 
 ##   2. Try adding region to the model. Are there significant differences
 ##      across the four regions?
+states.engmet_region<-lm(states.data$energy~states.data$metro+states.data$csat+states.data$vsat+states.data$csat*states.data$vsat+states.data$region,data = states.data)
+

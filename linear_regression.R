@@ -138,6 +138,8 @@ plot(x=states.data$energy, y= states.data$metro)
 states.engmet<-lm(states.data$energy~states.data$metro,data = states.data)
 summary(states.engmet)
 
+##those two are not strongly related. 
+
 
 ## We have a R-squared 0.98 here 
 
@@ -240,7 +242,8 @@ coef(summary(lm(csat ~ C(region, contr.helmert),
 ##      generating an interaction term and testing the interaction.
 
 states.engmet_new<-lm(states.data$energy~states.data$metro+states.data$csat+states.data$vsat+states.data$csat*states.data$vsat,data = states.data)
-
+summary(states.engmet_new)
+coef(summary(states.engmet_new))
 ##   2. Try adding region to the model. Are there significant differences
 ##      across the four regions?
 states.engmet_region<-lm(states.data$energy~states.data$metro+states.data$csat+states.data$vsat+states.data$csat*states.data$vsat+states.data$region,data = states.data)
